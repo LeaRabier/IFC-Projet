@@ -6,13 +6,23 @@
 
 int main()
 {
-    Joueurs* tableauJoueurs = NULL;
-    chargerJoueurs(tableauJoueurs);
-    printf("%d", sizeof(int));
-    printf("%s",tableauJoueurs[0].exp);
+    Joueurs* joueurs = NULL;
+    int indiceJoueur = 0; //l'indice du joueur connecté, dans le tableau joueurs
+    connexion(joueurs, &indiceJoueur); //avec joueurs mis a jour en cas de nouveau compte
+
+    //Joueurs* joueurs = chargerJoueurs(); pris en charge par "connexion"
+
+    menu(joueurs[indiceJoueur], joueurs);
+
+    /* test affichage joueurs : ok
+    for(int i = 0; i<4;i++)
+    {
+        printf("%s | %s | %d\n",joueurs[i].nom, joueurs[i].mdp, joueurs[i].exp);
+    }
+    /**/
 
 
+    free(joueurs); //Libérer la place prise en mémoire pour les joueurs
 
-    free(tableauJoueurs);
     return 0;
 }

@@ -12,29 +12,32 @@ int nbJoueurs(FILE* fichierJoueur)
             if(c=='\n')
                 nbJoueur++;
         }
-        return nbJoueur;
+    fseek(fichierJoueur, 13, SEEK_SET); //replacer le curseur après le titre
+    return nbJoueur;
 }
 
-int chargerJoueurs(Joueurs* tableauJoueurs)
+Joueurs* chargerJoueurs()
 {
     FILE* fichier = NULL;
-    fichier = fopen("donnees/joueur.csv", "r+");
-
-    if(fichier != NULL)
-    {
-        //Joueurs* tableauJoueurs = NULL;
-        tableauJoueurs = malloc(nbJoueurs(fichier) * sizeof(Joueurs));
-        if (tableauJoueurs == NULL) exit(0);
-
-        fseek(fichier, 1, SEEK_SET);
-
-        fscanf(fichier,"%s;%s;%d", tableauJoueurs[0].nom, tableauJoueurs[0].mdp, &tableauJoueurs[0].exp);
-
-        fclose(fichier);
-        return 1;
+    fichier = fopen("donnees\\joueur.txt", "r");
+    if(fichier == NULL){
+        printf("ERREUR DANS LA LECTURE DU FICHIER \"Joueur\" :(");
+        exit(0);
     }
-    return 0;
 
-    //printf("val 1 : %d\nval 2 : %d", valeurl, valeur2);
+    int nbJoueur = nbJoueurs(fichier);
+    Joueurs* tableauJoueurs = NULL;
+    tableauJoueurs = malloc(nbJoueur * sizeof(Joueurs));
+    if (tableauJoueurs == NULL){
+        printf("ACCES A LA MEMOIRE IMPOSSIBLE");
+         exit(0);
+    }
 
+    for(int i = 0; i < nbJoueur; i++)
+    {
+        fscanf(fichier,"%s %s %d\n", tableauJoueurs[i].nom, tableauJoueurs[i].mdp, &tableauJoueurs[i].exp);
+    }
+
+    fclose(fichier);
+    return tableauJoueurs;
 }
