@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1523385414 source:c:\users\yanni\desktop\ifc\ifc-projet\projet\main.c
+	<stdio.h>
+	<stdlib.h>
+	"structure.h"
+	"constantes.h"
+	"joueur.h"
+
+1523385557 c:\users\yanni\desktop\ifc\ifc-projet\projet\structure.h
+
+1523376104 c:\users\yanni\desktop\ifc\ifc-projet\projet\constantes.h
+
+1523376844 c:\users\yanni\desktop\ifc\ifc-projet\projet\joueur.h
+
+1523385761 source:c:\users\yanni\desktop\ifc\ifc-projet\projet\joueur.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"structure.h"
+
