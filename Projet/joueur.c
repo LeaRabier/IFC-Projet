@@ -16,7 +16,7 @@ int nbJoueurs(FILE* fichierJoueur)
     return nbJoueur;
 }
 
-Joueurs* chargerJoueurs()
+Joueurs* chargerJoueurs(int* nbJoueur)
 {
     FILE* fichier = NULL;
     fichier = fopen("donnees\\joueur.txt", "r");
@@ -25,15 +25,15 @@ Joueurs* chargerJoueurs()
         exit(0);
     }
 
-    int nbJoueur = nbJoueurs(fichier);
+    (*nbJoueur) = nbJoueurs(fichier);
     Joueurs* tableauJoueurs = NULL;
-    tableauJoueurs = malloc(nbJoueur * sizeof(Joueurs));
+    tableauJoueurs = malloc(*nbJoueur * sizeof(Joueurs));
     if (tableauJoueurs == NULL){
-        printf("ACCES A LA MEMOIRE IMPOSSIBLE");
+        printf("ACCES A LA MEMOIRE REFUSE");
          exit(0);
     }
 
-    for(int i = 0; i < nbJoueur; i++)
+    for(int i = 0; i < *nbJoueur; i++)
     {
         fscanf(fichier,"%s %s %d\n", tableauJoueurs[i].nom, tableauJoueurs[i].mdp, &tableauJoueurs[i].exp);
     }
@@ -41,3 +41,19 @@ Joueurs* chargerJoueurs()
     fclose(fichier);
     return tableauJoueurs;
 }
+
+void calcNiveau(int experience, char niveau[], char expManquante[])
+{
+    int i = 25, intNiveau = 0, sommeExp = 25;
+    while (sommeExp <= experience)
+    {
+        i += (int)(i/4);
+        sommeExp += i;
+        intNiveau++;
+    }
+    sprintf(niveau, "%d", intNiveau);
+    sprintf(expManquante, "%d", sommeExp - experience);
+}
+
+
+

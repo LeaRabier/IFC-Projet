@@ -1,2 +1,2 @@
 
-menu(Joueurs, Joueurs*);
+void menu(int , Joueurs*);
