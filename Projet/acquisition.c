@@ -4,6 +4,20 @@
 #include <ctype.h>
 #include <math.h>
 
+int choixMenu(int nbChoix)
+{
+    char touche = 0;
+    do
+    {
+        touche = getch();
+    }
+    while(touche < '1' || touche >= '1' + nbChoix);
+
+    return(touche - 64);
+
+}
+
+
 int lireTexte (char chaine[],int longueur, int type) //type normal, code, maj, min
 {
     char touche = 0;
@@ -62,6 +76,10 @@ int lireEntier(int longueur, int min, int max)
     char touche;
     char* chaine = NULL;
     chaine = malloc(longueur*sizeof(char));
+    if (chaine == NULL){
+        printf("ACCES A LA MEMOIRE REFUSE");
+        exit(0);
+    }
     int signe = 1;
     int indice = 0;
 
@@ -102,6 +120,7 @@ int lireEntier(int longueur, int min, int max)
             }
         }
         valeur = signe * charToInt(chaine,indice);
+
         if(valeur > max && (touche == 13 || signe == 1))
         {
             printf("  Trop grand !\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
@@ -113,6 +132,7 @@ int lireEntier(int longueur, int min, int max)
     }
     while( !((touche == 13) && valeur >= min && valeur <= max)); //touche entrer
 
+    free(chaine);
     return(valeur);
 }
 
@@ -121,7 +141,7 @@ int puissance10(int valeur) //prefferable a pow car defini en 0 et ne nécésite p
     int resultat = 1;
     for(int j = 0; j<valeur;j++)
     {
-        resultat *=10;
+        resultat *= 10;
     }
     return(resultat);
 }
@@ -134,6 +154,5 @@ int charToInt(char* chaine, int longueur)
     {
         resultat = resultat +chaine[i] * puissance10(longueur - i-1);
     }
-    return resultat;
-
+    return(resultat);
 }

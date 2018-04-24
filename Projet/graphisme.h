@@ -1,0 +1,4 @@
+void graphismesMenu(char ecran[]);
+
+
+
